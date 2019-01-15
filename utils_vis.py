@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from tritonis.utils import splines_
 from colors import epicon_colors
+import splines_
 
 
 leaf_data = pd.read_csv("data/RNASeq/leaf_log.tsv",

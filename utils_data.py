@@ -25,6 +25,10 @@ def fetch_data(user="", password=""):
 def _fetch_single_data(url, outname, user="", password="", verbose=True):
     if verbose:
         print("Fetching data file: %s" % url)
+    if os.path.exists(outname):
+        if verbose:
+            print("File %s already exists. Skipping…" % outname)
+        return
     r = requests.get(url,
                      auth=HTTPBasicAuth(user, password),
                      allow_redirects=True)
