@@ -1,0 +1,11 @@
+name: epicon_transcriptomic
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - pip:
+    - numpy
+    - scipy
+    - pandas
+    - matplotlib
+    - patsy
