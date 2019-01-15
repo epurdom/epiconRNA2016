@@ -31,7 +31,7 @@ def plot_gene(gene_name, sample_type="leaf"):
             "Unknown sample_type. Can be leaf or root. '%s' was "
             "provided." % sample_type)
     try:
-        counts = data.loc[gene_name].as_matrix()
+        counts = data.loc[gene_name].values
     except KeyError:
         print("Gene not found in the data. Could be not expressed. '%s' was"
               " the gene name provided" % (gene_name,))
@@ -52,10 +52,10 @@ def plot_gene(gene_name, sample_type="leaf"):
             sub_counts = counts[mask]
             sub_meta = meta[mask]
             sub_conditions = np.array(["%s.%s" % (c, g) for c, g in zip(
-                sub_meta["Condition"].as_matrix(),
-                sub_meta["Genotype"].as_matrix())]).astype(object)
+                sub_meta["Condition"].values,
+                sub_meta["Genotype"].values)]).astype(object)
 
-            timepoints = sub_meta["Week"].as_matrix().astype(int)
+            timepoints = sub_meta["Week"].values.astype(int)
 
             if condition == "Preflowering":
                 pre_timepoints = timepoints < 8.5
@@ -127,3 +127,9 @@ def plot_gene(gene_name, sample_type="leaf"):
                  horizontalalignment="right",
                  transform=axes[1].transAxes)
     axes[1].legend(bbox_to_anchor=(1.1, 1), frameon=False)
+    axes[0].set_ylabel("Log expression", fontweight="bold")
+    axes[0].set_xlabel("Week", fontweight="bold")
+    axes[1].set_xlabel("Week", fontweight="bold")
+
+    fig.suptitle("%s (%s)" % (gene_name, sample_type), fontsize="large",
+                 fontweight="bold")
